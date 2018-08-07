@@ -4,17 +4,26 @@ services:
     image: nginx
     network_mode: host
     volumes:
-    - "./conf.d:/etc/nginx/conf.d:ro"
-    - "./letsencrypt:/etc/letsencrypt"
-    - "http_challenge:/var/www/.well-known"
+    - "./letsencrypt/live:/etc/nginx/certs:ro"
+    - "http_challenge:/var/www/.well-known:ro"
+    - "./scripts:/scripts"
+    env_file:
+    - domains.env # copy domains.example.env to domains.env
+
+    command: /bin/bash -c "/scripts/generate-config.sh && exec nginx -g 'daemon off;'"
 
   certbot:
     image: certbot/certbot
     volumes:
     - "./letsencrypt:/etc/letsencrypt"
-    - "./conf.d:/etc/nginx/conf.d"
     - "http_challenge:/var/www/.well-known"
-    command: ["renew"]
+    - "./scripts:/scripts"
+
+    env_file:
+    - domains.env # copy domains.example.env to domains.env
+
+    entrypoint: sh -c
+    command: certbot renew
 
 volumes:
   http_challenge: ~
