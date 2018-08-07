@@ -2,7 +2,7 @@
 
 
 TARGET="/etc/nginx/conf.d"
-CERT_ROOT="/etc/nginx/certs"
+CERT_ROOT="/etc/letsencrypt/live"
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 TPL_HTTPS="$DIR/https.conf";

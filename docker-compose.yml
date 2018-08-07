@@ -4,7 +4,7 @@ services:
     image: nginx
     network_mode: host
     volumes:
-    - "./letsencrypt/live:/etc/nginx/certs:ro"
+    - "./letsencrypt:/etc/letsencrypt:ro"
     - "http_challenge:/var/www/.well-known:ro"
     - "./scripts:/scripts"
     env_file:
