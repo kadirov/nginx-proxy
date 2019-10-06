@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 
-TARGET="./etc/nginx/conf.d"
+TARGET="/etc/nginx/conf.d"
 CERT_ROOT="/etc/letsencrypt/live"
 CONFIG_FILE="/config/config.txt"
 
