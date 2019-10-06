@@ -28,7 +28,10 @@ do
   fi
 
   CERT_DIR="$CERT_ROOT/$DOMAIN"
-  [[ -d ${CERT_DIR} ]] || echo "Skip HTTPS config for $DOMAIN because cert dir not found: ${CERT_DIR}" && continue
+  if [[ ! -d ${CERT_DIR} ]]; then
+    echo "Skip HTTPS config for $DOMAIN because cert dir not found: ${CERT_DIR}"
+    continue
+  fi
 
   case "$HTTPS_PORT" in
     "~") HTTPS_PORT=$HTTP_PORT PROTOCOL=http ;;
