@@ -3,7 +3,7 @@
 
 TARGET="./etc/nginx/conf.d"
 CERT_ROOT="/etc/letsencrypt/live"
-CONFIG_FILE="../config.example.txt"
+CONFIG_FILE="/config/config.txt"
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 TPL_HTTPS="$DIR/https.conf"
