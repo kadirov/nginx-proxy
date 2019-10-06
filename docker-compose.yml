@@ -7,8 +7,7 @@ services:
     - "./letsencrypt:/etc/letsencrypt:ro"
     - "http_challenge:/var/www/.well-known:ro"
     - "./scripts:/scripts"
-    env_file:
-    - domains.env # copy domains.example.env to domains.env
+    - "./config:/config"
 
     command: /bin/bash -c "/scripts/generate-config.sh && exec nginx -g 'daemon off;'"
 
@@ -18,9 +17,7 @@ services:
     - "./letsencrypt:/etc/letsencrypt"
     - "http_challenge:/var/www/.well-known"
     - "./scripts:/scripts"
-
-    env_file:
-    - domains.env # copy domains.example.env to domains.env
+    - "./config:/config"
 
     entrypoint: sh -c
     command: certbot renew

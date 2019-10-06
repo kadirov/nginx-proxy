@@ -1,0 +1,11 @@
+# Config file example
+# domain          HTTP port       HTTPS port
+
+# site has http and https sepcific ports
+example.com       8080            8081
+
+# site receives http and https traffic on the same port
+example.org       8082            ~
+
+# site receives only http traffic
+example.net       8080            ~

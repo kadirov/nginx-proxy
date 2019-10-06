@@ -1,0 +1,19 @@
+#!/usr/bin/env sh
+
+CONFIG_FILE="/config/config.txt"
+
+while read -r DOMAIN HTTP_PORT HTTPS_PORT
+do
+
+  if [[ "x$DOMAIN" == "x#" ]] || [[ "x$DOMAIN" = "x" ]]; then
+    continue
+  fi
+
+  printf "Generating certificate for %s...\n" $DOMAIN
+  if [[ "$HTTPS_PORT" = "" ]]; then
+    continue
+  fi
+
+  certbot certonly --keep --register-unsafely-without-email --webroot -w /var/www -d $DOMAIN
+
+done <"$CONFIG_FILE"
