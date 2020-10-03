@@ -14,6 +14,6 @@ do
     continue
   fi
 
-  certbot certonly --keep --register-unsafely-without-email --webroot -w /var/www -d $DOMAIN
+  certbot certonly --agree-tos --keep --register-unsafely-without-email --webroot -w /var/www -d $DOMAIN
 
 done <"$CONFIG_FILE"
