@@ -1,26 +1,28 @@
 version: '3'
 services:
-  nginx:
-    image: nginx
-    network_mode: host
-    volumes:
-    - "./letsencrypt:/etc/letsencrypt:ro"
-    - "http_challenge:/var/www/.well-known:ro"
-    - "./scripts:/scripts"
-    - "./config:/config"
+    nginx:
+        image: nginx
+        network_mode: host
+        volumes:
+            - ./letsencrypt:/etc/letsencrypt:ro
+            - http_challenge:/var/www/.well-known:ro
+            - ./scripts:/scripts
+            - ./config:/config
+            - ./manual-configuration-files:/manual-configuration-files
+            - /root/sites/static:/var/www/sites/static
 
-    command: /bin/bash -c "/scripts/generate-config.sh && exec nginx -g 'daemon off;'"
+        command: /bin/bash -c "/scripts/generate-config.sh && cp /manual-configuration-files/*.conf /etc/nginx/conf.d/ && exec nginx -g 'daemon off;'"
 
-  certbot:
-    image: certbot/certbot
-    volumes:
-    - "./letsencrypt:/etc/letsencrypt"
-    - "http_challenge:/var/www/.well-known"
-    - "./scripts:/scripts"
-    - "./config:/config"
+    certbot:
+        image: certbot/certbot
+        volumes:
+            - ./letsencrypt:/etc/letsencrypt
+            - http_challenge:/var/www/.well-known
+            - ./scripts:/scripts
+            - ./config:/config
 
-    entrypoint: sh -c
-    command: certbot renew
+        entrypoint: sh -c
+        command: certbot renew
 
 volumes:
-  http_challenge: ~
+    http_challenge: ~
