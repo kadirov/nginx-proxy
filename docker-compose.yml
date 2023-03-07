@@ -3,6 +3,7 @@ services:
     nginx:
         image: nginx
         network_mode: host
+        restart: unless-stopped
         volumes:
             - ./letsencrypt:/etc/letsencrypt:ro
             - http_challenge:/var/www/.well-known:ro
