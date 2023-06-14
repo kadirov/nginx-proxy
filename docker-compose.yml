@@ -22,6 +22,8 @@ services:
             - ./scripts:/scripts
             - ./config:/config
 
+        depends_on:
+            - nginx
         entrypoint: sh -c
         command: certbot renew
 
