@@ -2,10 +2,11 @@
 
 echo "Updating certbot certificates..."
 
-DOCKERFILE=/root/nginx-proxy/docker-compose.yml
+REPO_DIR=/root/nginx-proxy
+DOCKERFILE=$REPO_DIR/docker-compose.yml
 
 docker compose -f $DOCKERFILE run certbot /scripts/get-certs
 docker compose -f $DOCKERFILE down
 docker compose -f $DOCKERFILE up -d
 
-./autorun.sh
+/bin/bash $REPO_DIR/setup-cron.sh
