@@ -1,0 +1,7 @@
+# After change this file you
+# must to re-run setup-cron.sh file 
+# to replace your changes
+#
+# 5  4  3  *  1  At 04:05, on third day of month, on Monday
+# i  H  d  m  w  user command
+  0  2 1,15 *  *  root /bin/bash /root/nginx-proxy/update.sh

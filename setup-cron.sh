@@ -20,16 +20,11 @@ if ! command -v cron &>/dev/null; then
     sudo systemctl enable cron
     echo "Cron has been installed and started."
 else
-    echo "Cron is already installed."
+    echo "Cron is installed."
 fi
 
 # Set crontab
-CRON_COMMAND="/bin/bash /root/nginx-proxy/update.sh"
-
-if crontab -l | grep -q "$CRON_COMMAND"; then
-    echo "Cron job already exists."
-else
-    # cron job to run on the 15th of every month at midnight (00:00)
-    (crontab -l ; echo "0 0 15 * * $CRON_COMMAND") | crontab -
-    echo "Cron job added to run on the 15th of every month at midnight."
-fi
+cp -f /root/nginx-proxy/scripts/cron-file /etc/cron.d/
+sudo chmod 644 /etc/cron.d/cron-file
+crontab /etc/cron.d/cron-file
+crontab -l
